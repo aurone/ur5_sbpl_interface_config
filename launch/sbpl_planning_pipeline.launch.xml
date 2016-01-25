@@ -1,0 +1,25 @@
+<launch>
+    <arg name="planning_plugin" value="sbpl_interface/SBPLPlanner" />
+
+    <!--
+    <arg name="planning_adapters"
+            value="default_planner_request_adapters/AddTimeParameterization
+                    default_planner_request_adapters/FixWorkspaceBounds
+                    default_planner_request_adapters/FixStartStateBounds
+                    default_planner_request_adapters/FixStartStateCollision
+                    default_planner_request_adapters/FixStartStatePathConstraints" />
+    -->
+
+    <arg name="planning_adapters" value=""/>
+
+    <param name="planning_plugin" value="$(arg planning_plugin)" />
+    <param name="request_adapters" value="$(arg planning_adapters)" />
+    <param name="start_state_max_bounds_error" value="0.1" />
+
+    <rosparam command="load" file="$(find ur5_moveit_config)/config/kinematics.yaml"/>
+    <rosparam command="load" file="$(find ur5_sbpl_interface_config)/config/sbpl_planning.yaml"/>
+
+    <group ns="manipulator">
+        <param name="mprim_filename" value="$(find ur5_sbpl_interface_config)/config/ur5.mprim"/>
+    </group>
+</launch>
