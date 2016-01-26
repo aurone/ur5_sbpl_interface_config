@@ -8,6 +8,8 @@
     </include>
 
     <!-- If needed, broadcast static tf for robot root -->
+    <node name="virtual_joint_broadcaster_0" pkg="tf" type="static_transform_publisher"
+            args="0 0 0 0 0 0 world base_link 100"/>
 
     <!-- We do not have a robot connected, so publish fake joint states -->
     <node name="joint_state_publisher" pkg="joint_state_publisher"
