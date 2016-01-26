@@ -81,6 +81,7 @@ manipulator:
     xyzrpy_snap_dist_thresh: 0.2
     short_dist_mprims_thresh: 0.4
     shortcut_path: true
+    interpolate_path: true
 
 planner_configs:
     ARAConfigDefault:
