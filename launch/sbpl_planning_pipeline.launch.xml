@@ -18,6 +18,7 @@
 
     <rosparam command="load" file="$(find ur5_moveit_config)/config/kinematics.yaml"/>
     <rosparam command="load" file="$(find ur5_sbpl_interface_config)/config/sbpl_planning.yaml"/>
+    <rosparam command="load" file="$(find ur5_sbpl_interface_config)/config/collision_detection.yaml"/>
 
     <group ns="manipulator">
         <param name="mprim_filename" value="$(find ur5_sbpl_interface_config)/config/ur5.mprim"/>
