@@ -56,7 +56,7 @@ manipulator:
         - MHAConfigDefault
 
     ### Collision Checking Parameters ###
-    use_sbpl_collision_checking: true
+    use_sbpl_collision_checking: false
 
     ### Graph Parameters ###
 
