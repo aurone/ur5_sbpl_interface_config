@@ -40,6 +40,9 @@
 #     shortcut_path: bool
 #         # whether to apply a shortcutter to the discrete path to smooth the
 #         # final trajectory
+#     shortcut_type: string
+#         # the type of shortcut motions used by the shortcutter; available
+#         # strings: "joint_space", "euclidean"
 #
 # planner_configs:
 #     Planner1Config:
@@ -82,6 +85,7 @@ manipulator:
     xyzrpy_snap_dist_thresh: 0.2
     short_dist_mprims_thresh: 0.4
     shortcut_path: true
+    shortcut_type: euclidean
     interpolate_path: true
 
 planner_configs:
