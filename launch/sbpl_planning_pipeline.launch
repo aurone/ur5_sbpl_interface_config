@@ -1,5 +1,9 @@
 <launch>
     <arg name="planning_plugin" value="sbpl_interface/SBPLPlanner" />
+    <rosparam param="planner_plugins">
+        sbpl: sbpl_interface/SBPLPlanner
+        ompl: ompl_interface/OMPLPlanner
+    </rosparam>
 
     <arg name="planning_adapters"
             value="default_planner_request_adapters/AddTimeParameterization
