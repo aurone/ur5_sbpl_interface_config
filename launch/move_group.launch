@@ -22,6 +22,9 @@
   <arg name="jiggle_fraction" default="0.05" />
   <arg name="publish_monitored_planning_scene" default="true"/>
 
+  <param name="collision_detector" value="collision_detection/CollisionPluginSBPL"/>
+  <rosparam command="load" file="$(find sbpl_collision_checking_test)/config/collision_detection_ur5.yaml"/>
+
   <!-- Planning Functionality -->
   <include ns="move_group" file="$(find ur5_sbpl_interface_config)/launch/sbpl_planning_pipeline.launch"/>
 
@@ -38,7 +41,7 @@
   </include>
 
   <!-- Start the actual move_group node/action server -->
-  <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">
+  <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)" clear_params="true">
     <!-- Set the display variable, in case OpenGL code is used internally -->
     <env name="DISPLAY" value="$(optenv DISPLAY :0)" />
 
