@@ -1,5 +1,6 @@
 <launch>
     <arg name="planning_plugin" value="sbpl_interface/SBPLPlanner" />
+    <!--arg name="planning_plugin" value="sbpl_interface/PlannerFamily" /> -->
     <rosparam param="planner_plugins">
         sbpl: sbpl_interface/SBPLPlanner
         ompl: ompl_interface/OMPLPlanner
@@ -20,7 +21,17 @@
     <rosparam command="load" file="$(find ur5_sbpl_interface_config)/config/sbpl_planning.yaml"/>
     <rosparam command="load" file="$(find ur5_sbpl_interface_config)/config/collision_detection.yaml"/>
 
-    <group ns="manipulator">
+    <group ns="graph_configs/ManipulatorManipLatticeConfig">
         <param name="mprim_filename" value="$(find ur5_sbpl_interface_config)/config/ur5.mprim"/>
     </group>
+
+    <group ns="graph_configs/ManipulatorManipLatticeEgraphConfigDefault">
+        <param name="mprim_filename" value="$(find ur5_sbpl_interface_config)/config/ur5.mprim"/>
+    </group>
+
+    <group ns="graph_configs/ManipulatorManipLatticeEgraphConfigDefault">
+      <param name="egraph_path" value="/home/harp/plaid_ws/src/plaid_apc/harp_arm/data/EGraph_Trajectories"/>
+  </group>
+
+    
 </launch>

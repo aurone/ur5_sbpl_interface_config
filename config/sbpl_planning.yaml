@@ -1,70 +1,57 @@
-## the planner configurations; each config must have a type, which specifies
-## the planner to be used; other parameters can be specified as well, depending
-## on the planner
-
-# The general configuration format for a joint group is as follows:
-
-# <group_name>:
-#     planner_configs:
-#         - Planner1Config
-#         - Planner2Config
-#         - ...
-#         - PlannerNConfig
-#     use_sbpl_collision_checking: [true|false]
-#     discretization:
-#          joint1_name: discretization resolution
-#          joint2_name: discretization resolution
-#          ...
-#          joint1_name: discretization resolution
-#     mprim_filename: string
-#         # path to the file describing long and short range motion primitives
-#     use_xyz_snap_mprim: bool
-#         # whether to use motions computed via interpolating from the current
-#         # state to an arm pose computed via 3-dof ik to the goal position
-#     use_rpy_snap_mprim: bool
-#         # whether to use motions computed via interpolating from the current
-#         # state to an arm pose computed via 3-dof ik to the goal orientation
-#     use_xyzrpy_snap_mprim: bool
-#         # whether to use motions computed via interpolating from the current
-#         # state to an arm pose computed via 6-dof ik to the goal pose
-#     use_short_dist_mprims: bool
-#         # whether to use short distance motion primitives
-#     xyz_snap_dist_thresh: double
-#     rpy_snap_dist_thresh: double
-#     xyzrpy_snap_dist_thresh: double
-#         # the distance from the goal at which to start using ik motion
-#         # primitives
-#     short_dist_mprims_thresh: double
-#         # the distance from the goal at which to start using short distance
-#         # motion primitves
-#     shortcut_path: bool
-#         # whether to apply a shortcutter to the discrete path to smooth the
-#         # final trajectory
-#     shortcut_type: string
-#         # the type of shortcut motions used by the shortcutter; available
-#         # strings: "joint_space", "euclidean"
-#
-# planner_configs:
-#     Planner1Config:
-#         planner1_param1: value
-#         planner2_param1: value
-#         ...
-#         plannern_param1: value
-#     ...
-
 manipulator:
-    ### Available Search Parameters ###
-    planner_configs:
-        - ARAConfigDefault
-        - MHAConfigDefault
-        - LARAConfigDefault
+  planner_configs:
+    - name: arastar.bfs.manip
+      graph_config: ManipulatorManipLatticeConfig
+      heuristic_config: BFSConfig
+      search_config: ARAConfig
+      shortcut_config: EuclideanConfig
+    - name: larastar.bfs.manip
+      graph_config: ManipulatorManipLatticeConfig
+      heuristic_config: BFSConfig
+      search_config: LARAConfig
+      shortcut_config: EuclideanConfig
+    - name: egwastar.bfs_egraph.manip_egraph
+      graph_config: ManipulatorManipLatticeEgraphConfigDefault
+      heuristic_config: BFSEGraphConfig
+      search_config: EGWAConfigDefault
+      shortcut_config: EuclideanConfig
 
-    ### Collision Checking Parameters ###
-    use_sbpl_collision_checking: false
+search_configs:
+  ARAConfig:
+    search: arastar
+    epsilon: 100.0
+  MHAConfig:
+    search: mhastar
+    epsilon: 100.0
+    mha_epsilon: 2.0
+  LARAConfig:
+    search: larastar
+    epsilon: 100.0
+  EGWAConfigDefault:
+    search: egwastar
+    epsilon: 100.0
 
-    ### Graph Parameters ###
 
-    # angular resolution of each active joint variable
+heuristic_configs:
+  BFSConfig:
+    heuristic: bfs
+    bfs_res_x: 0.015
+    bfs_res_y: 0.015
+    bfs_res_z: 0.015
+    bfs_sphere_radius: 0.02
+  BFSEGraphConfig:
+    heuristic: bfs_egraph
+    bfs_res_x: 0.015
+    bfs_res_y: 0.015
+    bfs_res_z: 0.015
+    egraph_epsilon: 20.0
+    bfs_sphere_radius: 0.02
+  JointDistConfigDefault:
+    heuristic: joint_distance
+
+graph_configs:
+  ManipulatorManipLatticeConfig:
+    graph: manip
     discretization:
         elbow_joint:            0.017453292519943
         shoulder_lift_joint:    0.017453292519943
@@ -72,9 +59,23 @@ manipulator:
         wrist_1_joint:          0.017453292519943
         wrist_2_joint:          0.017453292519943
         wrist_3_joint:          0.017453292519943
-
-    ### Action Parameters ###
-
+    use_xyz_snap_mprim: false
+    use_rpy_snap_mprim: true
+    use_xyzrpy_snap_mprim: true
+    use_short_dist_mprims: true
+    xyz_snap_dist_thresh: 0.0
+    rpy_snap_dist_thresh: 0.04
+    xyzrpy_snap_dist_thresh: 0.2
+    short_dist_mprims_thresh: 0.4
+  ManipulatorManipLatticeEgraphConfigDefault:
+    graph: manip_lattice_egraph
+    discretization:
+        elbow_joint:            0.017453292519943
+        shoulder_lift_joint:    0.017453292519943
+        shoulder_pan_joint:     0.017453292519943
+        wrist_1_joint:          0.017453292519943
+        wrist_2_joint:          0.017453292519943
+        wrist_3_joint:          0.017453292519943
     # mprim_filename: uploaded via roslaunch
     use_xyz_snap_mprim: false
     use_rpy_snap_mprim: true
@@ -84,33 +85,14 @@ manipulator:
     rpy_snap_dist_thresh: 0.04
     xyzrpy_snap_dist_thresh: 0.2
     short_dist_mprims_thresh: 0.4
-    shortcut_path: true
-    shortcut_type: euclidean
-    interpolate_path: true
+  # ManipulatorWorkspaceConfigDefault:
+  #   graph: workspace
+  #ManipulatorManipLatticeConfigDefault:
+  #  graph: manip
 
-planner_configs:
-    ARAConfigDefault:
-        type: ARA*
-        epsilon: 100.0
-        use_bfs_heuristic: true
-        bfs_res_x: 0.015
-        bfs_res_y: 0.015
-        bfs_res_z: 0.015
-        bfs_sphere_radius: 0.02
-    MHAConfigDefault:
-        type: MHA*
-        epsilon: 100.0
-        mha_epsilon: 2.0
-        use_bfs_heuristic: true
-        bfs_res_x: 0.015
-        bfs_res_y: 0.015
-        bfs_res_z: 0.015
-        bfs_sphere_radius: 0.02
-    LARAConfigDefault:
-        type: LARA*
-        epsilon: 100.0
-        use_bfs_heuristic: true
-        bfs_res_x: 0.015
-        bfs_res_y: 0.015
-        bfs_res_z: 0.015
-        bfs_sphere_radius: 0.02
+
+shortcut_configs:
+  EuclideanConfig:
+    shortcutter: euclidean
+    shortcut_path: true
+    interpolate_path: true
