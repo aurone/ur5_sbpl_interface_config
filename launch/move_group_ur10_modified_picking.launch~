@@ -1,7 +1,7 @@
 <launch>
   <arg name="limited" default="false"/>
-
-  <include file="$(find ur5_moveit_config)/launch/planning_context.launch">
+  
+  <include file="$(find ur10_modified_moveit_config)/launch/picking_planning_context.launch">
     <arg name="limited" value="$(arg limited)" />
   </include>
   
@@ -23,23 +23,20 @@
   <arg name="jiggle_fraction" default="0.05" />
   <arg name="publish_monitored_planning_scene" default="true"/>
 
-  <!-- Planning Functionality include ns="move_group" file="$(find apc_ur5_moveit_config)/launch/all_planning_pipeline.launch.xml"-->
-  <!--
-  <include ns="move_group" file="$(find ur5_moveit_config)/launch/planning_pipeline.launch.xml">
+  <!-- Planning Functionality include ns="move_group" file="$(find apc_ur10_modified_moveit_config)/launch/all_planning_pipeline.launch.xml"-->
+  <include ns="move_group" file="$(find ur10_modified_moveit_config)/launch/planning_pipeline.launch.xml">
   </include>
-  -->
-  <include file="$(find ur5_sbpl_interface_config)/launch/sbpl_planning_pipeline.launch" ns="move_group"/>
 
   <!-- Trajectory Execution Functionality -->
-  <include ns="move_group" file="$(find ur5_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
+  <include ns="move_group" file="$(find ur10modified_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_manage_controllers" value="true" />
-    <arg name="moveit_controller_manager" value="ur5" unless="$(arg fake_execution)"/>
-    <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
+    <arg name="moveit_controller_manager" value="ur10" unless="$(arg fake_execution)"/> 
+    <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/> 
   </include>
 
   <!-- Sensors Functionality -->
-  <include ns="move_group" file="$(find ur5_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="moveit_sensor_manager" value="ur5" />
+  <include ns="move_group" file="$(find ur10_modified_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
+    <arg name="moveit_sensor_manager" value="ur10" />
   </include>
 
   <!-- Start the actual move_group node/action server -->
