@@ -95,4 +95,5 @@ shortcut_configs:
   EuclideanConfig:
     shortcutter: euclidean
     shortcut_path: true
+    shortcut_type: joint_space
     interpolate_path: true
