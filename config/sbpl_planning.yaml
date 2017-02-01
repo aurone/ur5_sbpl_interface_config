@@ -1,16 +1,16 @@
 manipulator:
   planner_configs:
-    - name: arastar.bfs.manip
+    arastar.bfs.manip:
       graph_config: ManipulatorManipLatticeConfig
       heuristic_config: BFSConfig
       search_config: ARAConfig
       shortcut_config: EuclideanConfig
-    - name: larastar.bfs.manip
+    larastar.bfs.manip:
       graph_config: ManipulatorManipLatticeConfig
       heuristic_config: BFSConfig
       search_config: LARAConfig
       shortcut_config: EuclideanConfig
-    - name: egwastar.bfs_egraph.manip_egraph
+    egwastar.bfs_egraph.manip_egraph:
       graph_config: ManipulatorManipLatticeEgraphConfigDefault
       heuristic_config: BFSEGraphConfig
       search_config: EGWAConfigDefault
