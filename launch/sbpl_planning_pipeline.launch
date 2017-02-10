@@ -29,7 +29,7 @@
     </group>
 
     <group ns="graph_configs/ManipulatorManipLatticeEgraphConfigDefault">
-      <param name="egraph_path" value="/home/harp/plaid_ws/src/plaid_apc/harp_arm/data/EGraph_Trajectories"/>
+      <param name="egraph_path" value="$(find harp_arm)/data/EGraph_Trajectories"/>
   </group>
 
     

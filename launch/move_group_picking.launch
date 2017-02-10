@@ -26,7 +26,7 @@
   <!-- Planning Functionality include ns="move_group" file="$(find apc_ur5_moveit_config)/launch/all_planning_pipeline.launch.xml"-->
   <!--include ns="move_group" file="$(find ur5_moveit_config)/launch/planning_pipeline.launch.xml">
   </include-->
-  <include file="$(find ur10_modified_sbpl_interface_config)/launch/sbpl_planning_pipeline.launch" ns="move_group"/>
+  <include file="$(find ur5_sbpl_interface_config)/launch/sbpl_planning_pipeline.launch" ns="move_group"/>
   
   <!-- Trajectory Execution Functionality -->
   <include ns="move_group" file="$(find ur5_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
